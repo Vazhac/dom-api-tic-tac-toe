@@ -14,20 +14,43 @@ const winningConditions = [
 
 window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('tic-tac-toe')
+    let playerX = [];
+    let playerO = [];
 
+    let counter = 1;
     document.addEventListener("click", (event1) => {
         const targetID = event1.target.id;
         //const targetSquare = Number(targetID);
 
         let stringArray = Array.from(targetID)
-        let playerArray = [];
-        let num = stringArray[stringArray - 1];
-        playerArray.push(num);
+        let num = stringArray[stringArray.length - 1];
+        if (targetID.includes('square-')) {
+            if (count % 2 !== 0) {           //checks turn
 
-        console.log(event1.target.id)
-        console.log(stringArray);
-        console.log(playerArray);
+                if (!playerX.includes(num)){ //If the element is a number
+
+                    playerX.push(num);
+                    counter++
+
+            } else {
+
+                if (!playerO.includes(num)) { //If the element is a number
+
+                    playerO.push(num);
+                    counter++;
+
+                    }
+                }
+            }
+        }
+        // console.log(event1.target.id)
+        // console.log(stringArray);
+        console.log(playerX);
+        console.log(playerO);
+
+        console.log(counter);
     })
+        // console.log(playerArray);
 })
         // const newGame
         // console.log(Array.from(document.getElementById('tic-tac-toe')));
