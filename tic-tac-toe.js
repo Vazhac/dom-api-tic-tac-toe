@@ -1,66 +1,150 @@
-//3 squares in a row, vertical, horizontal, diagonal.
-//if the click count is odd x
-//if the click coutn is even o
+window.addEventListener('DOMContentLoaded', (event)=>{
+    let ticTacToe =  document.getElementById("tic-tac-toe-board");
 
-//get id of the square of the id we click on
-//hold the value
-let currentPlayer = 'X';
-let squareValues = ["", "", "", "", "", "", "", "", "",]
+    let i = 0;
+    let gameBoard = [0,0,0,0,0,0,0,0,0]
 
-const winningConditions = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], [2, 5, 8],
-    [0, 3, 6], [0, 4, 8], [2, 4, 6], [1, 4, 7]
-]
 
-window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('tic-tac-toe')
-    let playerX = [];
-    let playerO = [];
+    ticTacToe.addEventListener('click', (event)=>{
 
-    let counter = 1;
-    document.addEventListener("click", (event1) => {
-        const targetID = event1.target.id;
-        //const targetSquare = Number(targetID);
+        let gameSquare = event.target.id.slice(-1)
+        console.log(gameSquare)
+        if(gameBoard[gameSquare] == 0){
+            if(i === 1){
+                let playerO = document.createElement("img")
+                playerO.setAttribute('src', 'player-o.svg')
 
-        let stringArray = Array.from(targetID)
-        let num = stringArray[stringArray.length - 1];
-        if (targetID.includes('square-')) {
-            if (count % 2 !== 0) {           //checks turn
+                event.target.appendChild(playerO)
+                i = 0;
+                gameBoard[gameSquare] = 1
+                winCon(gameBoard)
 
-                if (!playerX.includes(num)){ //If the element is a number
+            }else if(i === 0){
+                let playerX = document.createElement("img")
+                playerX.setAttribute('src', 'player-x.svg')
 
-                    playerX.push(num);
-                    counter++
+                event.target.appendChild(playerX)
+                i = 1;
+                gameBoard[gameSquare] = 2
+                winCon(gameBoard)
+            }
+            else{
 
-            } else {
-
-                if (!playerO.includes(num)) { //If the element is a number
-
-                    playerO.push(num);
-                    counter++;
-
-                    }
-                }
             }
         }
-        // console.log(event1.target.id)
-        // console.log(stringArray);
-        console.log(playerX);
-        console.log(playerO);
 
-        console.log(counter);
+
     })
-        // console.log(playerArray);
-})
-        // const newGame
-        // console.log(Array.from(document.getElementById('tic-tac-toe')));
-        // function restartGame() {
-        //     currentPlayer = "X";
-        //     gameState = [];
+    function newGameOn(){
+        newGameButton.addEventListener('click', (event)=>{
+            event.preventDefault()
+            location.reload();
+        })
 
-        // }
-        //eventListener listens for click on a square
-        //add a counter for each successful click.
-        //if odd num of clicks; add inputs to player x array;
-        //if even num of clicks; add inputs to player y array;
-        //if no winners are chosen under 10 clicks, then the result is a draw;
+    }
+
+
+    function playerOWins(){
+        document.title = "Winner - Y";
+        ticTacToe.removeEventListener('click', (event))
+        i = 2
+        newGameOn()
+    }
+    function playerXWins(){
+        document.title = "Winner - X";
+        ticTacToe.removeEventListener('click', (event))
+        i = 2
+        newGameOn()
+    }
+    function playersTie(){
+        document.title = "Players have tied";
+        newGameOn()
+    }
+
+    function winCon(gameBoard) {
+
+        if((gameBoard[0] === gameBoard[3]) && (gameBoard[3] === gameBoard[6]) && gameBoard[0]){
+            console.log("A player has won");
+            if(gameBoard[0] === 1){
+                playerOWins()
+            }else{
+                playerXWins()
+            }
+        }else if((gameBoard[1] === gameBoard[4]) && (gameBoard[4] === gameBoard[7]) && gameBoard[1]){
+            console.log("A player has won");
+            if(gameBoard[0] === 1){
+                playerOWins()
+            }else{
+                playerXWins()
+            }
+        }else if((gameBoard[2] === gameBoard[5]) && (gameBoard[5] === gameBoard[8]) && gameBoard[2]){
+            console.log("A player has won");
+            if(gameBoard[0] === 1){
+                 playerOWins()
+            }else{
+                playerXWins()
+            }
+
+        }else if((gameBoard[0] === gameBoard[1]) && (gameBoard[1] === gameBoard[2]) && gameBoard[0]){
+            console.log("A player has won");
+            if(gameBoard[0] === 1){
+                 playerOWins()
+            }else{
+                playerXWins()
+            }
+
+        }
+        else if((gameBoard[3] === gameBoard[4]) && (gameBoard[4] === gameBoard[5]) && gameBoard[3]){
+            console.log("A player has won");
+            if(gameBoard[0] === 1){
+                 playerOWins()
+            }else{
+                playerXWins()
+            }
+
+        }else if((gameBoard[6] === gameBoard[7]) && (gameBoard[7] === gameBoard[8]) && gameBoard[6]){
+            console.log("A player has won");
+            if(gameBoard[0] === 1){
+                 playerOWins()
+            }else{
+                playerXWins()
+            }
+
+        }else if((gameBoard[0] === gameBoard[4]) && (gameBoard[4] === gameBoard[8]) && gameBoard[0]){
+            console.log("A player has won");
+            if(gameBoard[0] === 1){
+                 playerOWins()
+            }else{
+                playerXWins()
+            }
+
+        }else if((gameBoard[2] === gameBoard[4]) && (gameBoard[4] === gameBoard[6]) && gameBoard[2]){
+            console.log("A player has won");
+            if(gameBoard[0] === 1){
+                playerOWins()
+            }else{
+                playerXWins()
+            }
+        }
+
+        console.log(gameBoard.indexOf(0) > -1)
+        if(!gameBoard.indexOf(0) > -1){
+            playersTie()
+        }
+
+    }
+    let buttonDiv = document.getElementsByClassName("actions")
+    console.log(buttonDiv);
+    buttonDiv = buttonDiv[0]
+    console.log(buttonDiv.childNodes)
+    let newGameButton = buttonDiv.childNodes[1]
+
+    newGameButton.addEventListener('click', (event)=>{
+        event.preventDefault()
+    })
+
+
+
+
+
+})
